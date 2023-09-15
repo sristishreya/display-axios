@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>
+        Form
+    </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body,
+        html {
+            height: 100%;
+            font-family: Arial, Helvetica, sans-serif;
+            background-image: url(https://img.freepik.com/free-vector/abstract-watercolor-background_23-2149069668.jpg?w=1800&t=st=1693315712~exp=1693316312~hmac=8327d397c189cb7774195dddbd2405216d7e447d88f2649a43d01a3d3916a8c6)
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        .bg-img {
+            min-height: 380px;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            position: relative;
+        }
+
+
+        .container {
+            position: relative;
+            border: 5px solid #eb592d;
+            border-radius: 5px;
+            margin: 20px;
+            margin-left: 400px;
+            max-width: 50%;
+
+            padding: 16px;
+            background-color: white;
+        }
+
+
+        input[type=email],
+        input[type=text],
+        input[type=number] {
+            width: 100%;
+            padding: 15px;
+            margin: 5px 0 22px 0;
+            border: none;
+            background: #f1f1f1;
+        }
+
+        input[type=email]:focus,
+        input[type=text],
+        input[type=number]:focus {
+            background-color: #ddd;
+            outline: none;
+        }
+
+  
+
+        .btn {
+            background-color: #eb592d;
+            color: white;
+            padding: 16px 20px;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            opacity: 0.9;
+        }
+
+        .btn:hover {
+            opacity: 1;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="bg-img">
+        <form class="container" id="my-form">
+
+            <h1 style="text-align: center;">Book</h1>
+            <p style="text-align: center;">Book a call and our representative will call you within 1hr of selected time
+            </p>
+
+            <label for="email"><b>Email</b></label>
+            <input type="email" id="email" autocomplete="off" name="email" required>
+
+            <label for="name"><b>Name</b></label>
+            <input type="text" id="name" autocomplete="off" name="name" required>
+
+            <label for="phn"><b>Phone No.</b></label>
+            <input type="number" id="phn" autocomplete="off" name="phn" required>
+
+
+            <button type="submit" id="btn" class="btn">GET A CALL</button>
+        </form>
+        <div id="submittedData">
+            <!-- Display submitted data here -->
+        </div>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>
+
+        <script src="main.js">
+
+        </script>
+    </div>
+</body>
+</html>
