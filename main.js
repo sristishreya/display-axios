@@ -1,59 +1,80 @@
-function postData(){
+function postData() {
     axios
-    .post('https://crudcrud.com/api/813a845e51dd4af29877b2d83eff1829/booking',{
-        email:document.getElementById("email").value,
-        name:document.getElementById("name").value,
-        phn:document.getElementById("phn").value
+        .post('https://crudcrud.com/api/c4dcfcf59361479ea8b75a5b3ad56457/booking', {
+            email: document.getElementById("email").value,
+            name: document.getElementById("name").value,
+            phn: document.getElementById("phn").value
 
-    })
-    .then(res=> console.log(res))
-    .catch(err=> console.error(err));
+        })
+        .then(res => console.log(res))
+        .catch(err => console.error(err));
 
 }
 
-// function displayDataFromAPI() {
-//     axios
-//         .get('https://crudcrud.com/api/813a845e51dd4af29877b2d83eff1829/booking')
-//         .then((res) => {
-//             const submittedDataDiv = document.getElementById('submittedData');
-//             res.data.forEach((data) => {
-//                 const dataDiv = document.createElement('div');
-//                 dataDiv.innerHTML = `<p>Email: ${data.email}, Name: ${data.name}, Phone No.: ${data.phn}</p>`;
-//                 submittedDataDiv.appendChild(dataDiv);
-//             });
-//         })
-//         .catch((err) => console.error(err));
-// }
 
-function displayData(){
+function displayData() {
     axios
-    .get('https://crudcrud.com/api/813a845e51dd4af29877b2d83eff1829/booking')
-    .then((res)=>{
-        const Data=document.getElementById('submittedData');
-        res.data.forEach((data)=>{
-            const dataDiv=document.createElement('div');
-            dataDiv.innerHTML=`Email:${data.email}, Name: ${data.name}, Phone No.: ${data.phn}
-            <button class="delete" data-id="${data._id}">Delete</button>`;
-            Data.appendChild(dataDiv);
+        .get('https://crudcrud.com/api/c4dcfcf59361479ea8b75a5b3ad56457/booking')
+        .then((res) => {
+            const Data = document.getElementById('submittedData');
+            Data.innerHTML = ''; 
 
-            const deleteButton = dataDiv.querySelector(".delete");
-            deleteButton.addEventListener("click", () => {
-                axios
-                    .delete(`https://crudcrud.com/api/813a845e51dd4af29877b2d83eff1829/booking/${data._id}`)
-                    .then((res) => {
-                        Data.removeChild(dataDiv);
-                    })
-                    .catch((err) => console.error(err));
+            res.data.forEach((data) => {
+                const dataDiv = document.createElement('div');
+                dataDiv.innerHTML = `
+                    Email: ${data.email}, Name: ${data.name}, Phone No.: ${data.phn}
+                    <button class="delete" data-id="${data._id}">Delete</button>
+                    <button class="edit" data-id="${data._id}">Edit</button>
+                `;
+
+                Data.appendChild(dataDiv);
+
+                const deleteButton = dataDiv.querySelector(".delete");
+                deleteButton.addEventListener("click", () => {
+                    axios
+                        .delete(`https://crudcrud.com/api/c4dcfcf59361479ea8b75a5b3ad56457/booking/${data._id}`)
+                        .then((res) => {
+                            Data.removeChild(dataDiv);
+                        })
+                        .catch((err) => console.error(err));
+                });
+
+                const editButton = dataDiv.querySelector(".edit");
+                editButton.addEventListener("click", () => {
+                    document.getElementById("email").value = data.email;
+                    document.getElementById("name").value = data.name;
+                    document.getElementById("phn").value = data.phn;
+
+                    Data.removeChild(dataDiv);
+
+
+                    const submitButton = document.getElementById("btn");
+                    submitButton.addEventListener("click", () => {
+                        
+                        const editedData = {
+                            email: document.getElementById("email").value,
+                            name: document.getElementById("name").value,
+                            phn: document.getElementById("phn").value,
+                        };
+
+
+                        displayData();
+                    });
+                });
+
             });
-        });
-    })
-    .catch((err) => console.error(err));
+        })
+        .catch((err) => console.error(err));
 }
-        
 
-document.getElementById("my-form").addEventListener("submit", function(event){
+
+
+
+document.getElementById("my-form").addEventListener("submit", function (event) {
     event.preventDefault();
     postData();
 })
 
 window.addEventListener("DOMContentLoaded", displayData);
+
+
