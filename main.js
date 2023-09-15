@@ -1,5 +1,3 @@
-
-
 function postData(){
     axios
     .post('https://crudcrud.com/api/813a845e51dd4af29877b2d83eff1829/booking',{
@@ -34,12 +32,24 @@ function displayData(){
         const Data=document.getElementById('submittedData');
         res.data.forEach((data)=>{
             const dataDiv=document.createElement('div');
-            dataDiv.innerHTML=`<p>Email:${data.email}, Name: ${data.name}, Phone No.: ${data.phn}</p>`;
+            dataDiv.innerHTML=`Email:${data.email}, Name: ${data.name}, Phone No.: ${data.phn}
+            <button class="delete" data-id="${data._id}">Delete</button>`;
             Data.appendChild(dataDiv);
+
+            const deleteButton = dataDiv.querySelector(".delete");
+            deleteButton.addEventListener("click", () => {
+                axios
+                    .delete(`https://crudcrud.com/api/813a845e51dd4af29877b2d83eff1829/booking/${data._id}`)
+                    .then((res) => {
+                        Data.removeChild(dataDiv);
+                    })
+                    .catch((err) => console.error(err));
+            });
         });
     })
     .catch((err) => console.error(err));
 }
+        
 
 document.getElementById("my-form").addEventListener("submit", function(event){
     event.preventDefault();
